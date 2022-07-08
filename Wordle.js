@@ -10,55 +10,81 @@
 // Global variables
 
 // Feed data here until I have an input line
-let PossibleAnswers = 'juror junto junta jumpy JUMBO JUICY JUICE JUdge joust jolly joker joist joint jiffy jewel jetty jerky jelly jazzy jaunt fjord enjoy eject banjo';
-PossibleAnswers = PossibleAnswers.toUpperCase ();
-PossibleAnswers = PossibleAnswers.split(' ');
-for (let i=0; i < PossibleAnswers.length; i++) {
-    if (!(/^[A-Z]{5}$/.test(PossibleAnswers[i]))) {
-        console.log (PossibleAnswers[i], 'must be alpha only, exactly 5 letters long, and delimiter must be a single space.');
-        return;
-    }
-}
-//let JWords = ['JUROR', 'JUNTO', 'JUNTA', 'JUMPY', 'JUMBO', 'JUICY', 'JUICE', 'JUDGE', 'JOUST', 'JOLLY', 'JOKER', 
-//'JOIST', 'JOINT', 'JIFFY', 'JEWEL', 'JETTY', 'JERKY', 'JELLY', 'JAZZY', 'JAUNT', 'FJORD', 'ENJOY', 'EJECT', 'BANJO'];
-let PatternArr = [];
-let GroupsArr = [];
-let GroupTallyStr = '';
-let TempStr = '';
+// let JWords = 'juror junto junta jumpy JUMBO JUICY JUICE JUdge joust jolly joker joist joint jiffy jewel jetty jerky jelly jazzy jaunt fjord enjoy eject banjo';
+// JWords = JWords.toUpperCase ();
+// JWords = JWords.split(' ');
+// for (let i=0; i < JWords.length; i++) {
+//     if (!(/^[A-Z]{5}$/.test(JWords[i]))) {
+//         console.log (JWords[i], 'must be alpha only, exactly 5 letters long, and delimiter must be a single space.');
+//         throw new Error('must be alpha only');
+//     }
+// }
 //--------------------------------------
 
-console.log ('---------------');
+let WordsInputEl = document.getElementById('words-input');
+let CalculateEl = document.getElementById('calculate');
+let OutputBox = document.getElementById('output-box');
+
+WordsInputEl.addEventListener('change', Calculate)
+CalculateEl.addEventListener('click', Calculate);
+
+function Calculate() {
+    let Words = WordsInputEl.value.toUpperCase().split(' ');
+    if (Validate(Words)) {
+        let WordGroups = test(Words);
+
+        OutputBox.innerHTML = '';
+        for (let i = 0; i < WordGroups.length; i++) {
+            let WordGroup = WordGroups[i];
+            OutputBox.innerText += WordGroup.Guess + ' ';
+            OutputBox.innerHTML += WordGroup.GroupSizes.length;
+            OutputBox.innerHTML += ' - ';
+            OutputBox.innerHTML += WordGroup.GroupSizes.join(',');
+            OutputBox.innerHTML += '<br>'
+        }
+    }
+}
+
+function Validate(Words) {
+    for (let i=0; i < Words.length; i++) {
+        if (!(/^[A-Z]{5}$/.test(Words[i]))) {
+            console.log (Words[i], 'must be alpha only, exactly 5 letters long, and delimiter must be a single space.');
+            throw new Error('must be alpha only');
+        }
+    }
+    return true;
+}
 
 // Display each group with stats
-for (let i  = 0; i< PossibleAnswers.length; i++) {  // Collect the patterns
-    let GuessWord = PossibleAnswers [i];
-    let Pattern = [];
-    for (let j = 0; j < PossibleAnswers.length; j++) {
-        let MatchWord = PossibleAnswers [j];
-        Pattern[j] = MatchPattern (GuessWord, MatchWord);
-        PatternArr[i] = PatternArr[i] + Pattern[j];        
-//        PatternArr[i].push(Pattern[j]);        
-    }
-    for (let j = 0; j < PossibleAnswers.length; j++) {  // Tally the patterns
-        let GroupTally = [];
-        for (let k = j; k < PossibleAnswers.length; k++) {
-            let TestStr = Pattern[j];
-            if (TestStr === Pattern[k]) {
-                GroupTally[j]++;
-                Pattern[j] = '*****'; //removes element from further counting
+function test(PossibleAnswers) {
+    let WordGroups = [];
+    for (let i = 0; i < PossibleAnswers.length; i++) {  // Collect the patterns
+        let GuessWord = PossibleAnswers [i];
+        let Patterns = [];
+        for (let j = 0; j < PossibleAnswers.length; j++) {
+            let MatchWord = PossibleAnswers [j];
+            let Pattern = MatchPattern (GuessWord, MatchWord);
+            Patterns.push(Pattern);     // ***   
+        }
+        // Tally the number of groups and number of elements in each group
+        let Groups ={};
+        for (let j = 0; j < Patterns.length; j++) {
+            let Pattern = Patterns[j];
+            if (Groups[Pattern] === undefined) {
+                Groups[Pattern] = 0;
             }
-            GroupTallyStr = GroupTally.length + '=';
-            TempStr = '>';
-        for (let k = 0; k < GroupTally.length; k++) { // create string tally values
-            TempStr = TempStr + GroupTally[k];
+            Groups[Pattern]++;
         }
-        GroupTallyStr = GroupTallyStr + TempStr;
-        console.log (GroupTallyStr);
-        }
-        console.log (GuessWord, 'X', PossibleAnswers[j], '=', Pattern[j]);
-        return;
-    }   
-    console.log ( )
+        WordGroups.push({ Guess: GuessWord, GroupSizes: Object.values(Groups)  });
+    }
+    WordGroups.sort ((a,b) => b.GroupSizes.length - a.GroupSizes.length);
+
+    for (let i = 0; i < WordGroups.length; i++) {
+        let WordGroup = WordGroups[i];
+        console.log(WordGroup.Guess, WordGroup.GroupSizes.length, '=>', WordGroup.GroupSizes.join(','));
+    }
+
+    return WordGroups;
 }
 
 //--------------------------------------

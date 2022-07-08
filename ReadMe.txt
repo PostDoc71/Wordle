@@ -1,5 +1,13 @@
 HOW TO PUSH FILES FROM ONEDRIVE TO GITHUB
 
+> git status          (OPTIONAL)
+> git add .
+> git status
+> git commit -m "Add html"  (COMMENT)
+> git push
+
+
+Sample session
 PS C:\Users\neuch\OneDrive\Documents\JavaScript\Wordle> git status
 On branch main
 Your branch is up to date with 'origin/main'.
