@@ -23,13 +23,21 @@
 
 let WordsInputEl = document.getElementById('words-input');
 let CalculateEl = document.getElementById('calculate');
+let ClearEl = document.getElementById('clear');
 let OutputBox = document.getElementById('output-box');
 
 WordsInputEl.addEventListener('change', Calculate)
+WordsInputEl.addEventListener('keypress', e => {
+    if (e.key === 'Enter') {
+        Calculate();
+    }
+});
 CalculateEl.addEventListener('click', Calculate);
+ClearEl.addEventListener('click', Clear)
 
 function Calculate() {
-    let Words = WordsInputEl.value.toUpperCase().split(' ');
+    let Words = WordsInputEl.value.toUpperCase().split(/[^A-Za-z]+/).filter(x => x);
+    console.log(Words);
     if (Validate(Words)) {
         let WordGroups = test(Words);
 
@@ -48,11 +56,17 @@ function Calculate() {
 function Validate(Words) {
     for (let i=0; i < Words.length; i++) {
         if (!(/^[A-Z]{5}$/.test(Words[i]))) {
-            console.log (Words[i], 'must be alpha only, exactly 5 letters long, and delimiter must be a single space.');
-            throw new Error('must be alpha only');
+            let ErrorMsg = Words[i] + ' must be alpha only & exactly 5 letters long';
+            console.log(ErrorMsg);
+            OutputBox.innerHTML = ErrorMsg;
+            return false;
         }
     }
     return true;
+}
+
+function Clear (Words) {
+    WordsInputEl.value = '';
 }
 
 // Display each group with stats
