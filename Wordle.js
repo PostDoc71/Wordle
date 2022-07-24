@@ -4,13 +4,12 @@
 // I think it gives an appropriate hint without giving a solution
 
 //--------------------------------------
-// MAIN PROGRAM
-
-//--------------------------------------
 // Global variables
 
 // Feed data here until I have an input line
 // let JWords = 'juror junto junta jumpy JUMBO JUICY JUICE JUdge joust jolly joker joist joint jiffy jewel jetty jerky jelly jazzy jaunt fjord enjoy eject banjo';
+//      ok--they are actually X words below
+// let JWords = 'waxen vixen twixt toxin toxic sixty sixth relax proxy pixie pixel oxide maxim index inbox helix fixer exult extra extol expel exist exile exert excel exalt exact epoxy detox bukom boxer xorax axion axiom axial annex affix';
 // JWords = JWords.toUpperCase ();
 // JWords = JWords.split(' ');
 // for (let i=0; i < JWords.length; i++) {
@@ -20,6 +19,9 @@
 //     }
 // }
 //--------------------------------------
+
+//--------------------------------------
+// MAIN PROGRAM
 
 let WordsInputEl = document.getElementById('words-input');
 let CalculateEl = document.getElementById('calculate');
@@ -34,6 +36,9 @@ WordsInputEl.addEventListener('keypress', e => {
 });
 CalculateEl.addEventListener('click', Calculate);
 ClearEl.addEventListener('click', Clear)
+
+//--------------------------------------
+// FUNCTIONS
 
 function Calculate() {
     let Words = WordsInputEl.value.toUpperCase().split(/[^A-Za-z]+/).filter(x => x);
@@ -67,6 +72,7 @@ function Validate(Words) {
 
 function Clear (Words) {
     WordsInputEl.value = '';
+    Calculate();
 }
 
 // Display each group with stats
@@ -100,9 +106,6 @@ function test(PossibleAnswers) {
 
     return WordGroups;
 }
-
-//--------------------------------------
-// Functions
 
 function MatchPattern(GuessStr, MatchStr) {
 // Change strings to arrays
