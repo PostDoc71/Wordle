@@ -46,6 +46,7 @@ function Calculate() {
         for (let i = 0; i < WordGroups.length; i++) {
             let WordGroup = WordGroups[i];
             WordGroup.GroupSizes.sort();
+            WordGroup.GroupSizes.reverse();
             OutputBox.innerText += WordGroup.Guess + ' ';
             OutputBox.innerHTML += WordGroup.GroupSizes.length;
             OutputBox.innerHTML += ' - ';
