@@ -4,20 +4,16 @@
 // I think it gives an appropriate hint without giving a solution
 
 //--------------------------------------
-// Global variables
+// DATA FEEDS FOR X AND J WORDS
 
-// Feed data here until I have an input line
-// let JWords = 'juror junto junta jumpy JUMBO JUICY JUICE JUdge joust jolly joker joist joint jiffy jewel jetty jerky jelly jazzy jaunt fjord enjoy eject banjo';
-//      ok--they are actually X words below
-// let JWords = 'waxen vixen twixt toxin toxic sixty sixth relax proxy pixie pixel oxide maxim index inbox helix fixer exult extra extol expel exist exile exert excel exalt exact epoxy detox bukom boxer xorax axion axiom axial annex affix';
-// JWords = JWords.toUpperCase ();
-// JWords = JWords.split(' ');
-// for (let i=0; i < JWords.length; i++) {
-//     if (!(/^[A-Z]{5}$/.test(JWords[i]))) {
-//         console.log (JWords[i], 'must be alpha only, exactly 5 letters long, and delimiter must be a single space.');
-//         throw new Error('must be alpha only');
-//     }
-// }
+// JWords = 
+// juror junto junta jumpy JUMBO JUICY JUICE JUdge joust jolly joker joist 
+// joint jiffy jewel jetty jerky jelly jazzy jaunt fjord enjoy eject banjo
+
+// XWords =
+// waxen vixen twixt toxin toxic sixty sixth relax proxy pixie pixel oxide 
+// maxim index inbox helix fixer exult extra extol expel exist exile exert 
+// excel exalt exact epoxy detox buxom boxer Borax axion axiom axial annex affix
 //--------------------------------------
 
 //--------------------------------------
@@ -49,6 +45,7 @@ function Calculate() {
         OutputBox.innerHTML = '';
         for (let i = 0; i < WordGroups.length; i++) {
             let WordGroup = WordGroups[i];
+            WordGroup.GroupSizes.sort();
             OutputBox.innerText += WordGroup.Guess + ' ';
             OutputBox.innerHTML += WordGroup.GroupSizes.length;
             OutputBox.innerHTML += ' - ';

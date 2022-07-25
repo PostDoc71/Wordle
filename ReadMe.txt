@@ -1,5 +1,6 @@
 HOW TO PUSH FILES FROM ONEDRIVE TO GITHUB
 
+> cd OneDrive\Documents\JavaScript\Wordle\
 > git status          (OPTIONAL)
 > git add .
 > git status
