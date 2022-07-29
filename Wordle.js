@@ -45,8 +45,7 @@ function Calculate() {
         OutputBox.innerHTML = '';
         for (let i = 0; i < WordGroups.length; i++) {
             let WordGroup = WordGroups[i];
-            WordGroup.GroupSizes.sort((a,b) => b.GroupSizes.length - a.GroupSizes.length);
-            WordGroup.GroupSizes.reverse();
+            WordGroup.GroupSizes.sort((a,b) => b - a);
             OutputBox.innerText += WordGroup.Guess + ' ';
             OutputBox.innerHTML += WordGroup.GroupSizes.length;
             OutputBox.innerHTML += ' - ';
