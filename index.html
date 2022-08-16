@@ -11,26 +11,39 @@
         }
 
         #calculate {
-            margin-right: 16px;
-    
+            margin-left: 11px;
+            margin-top: 2px;
+            margin-bottom: 6px;
         }
         #words-input {
              border:2px solid blue;
+        }
+        #guess-list {
+            margin-left:3px;
+        }
+        #clear {
+            margin-left:3px;
         }
     </style>
 </head>
 <body>
     <h2>Wordle Pal</h2>
-    <h5>Input a list of 5-letter words. <br>
-        Press CALCULATE or ENTER for results,  which displays <br>
-        for each word the number of groups and number of <br>
-        words within each group.
-    </h5>
-    <textarea id="words-input" cols="36" rows="10"></textarea>
+    <h5>Input a list of 5-letter words or search a dictionary.<br>
+        WORD CHECK:  checks word list against the lists of<br>
+        valid solutions and guesses. <br>
+        CALCULATE: sorts word list by number of groups and<br>
+        number of elements in each group.<br>
+        SOLUTION/GUESS LISTS:  show the entire dictionary.<br>
+       </h5>
+    WORD LIST
     <br>
-    <button id="calculate">CALCULATE</button>
-    <button id="clear">CLEAR</button>
+    <textarea id="words-input" cols="36" rows="10"></textarea><br>
+    <button id="word-check">WORD CHECK</button>
+    <button id="calculate">CALCULATE</button><br>
+    <button id="solution-list">SOLUTION LIST</button>
+    <button id="guess-list">GUESS LIST</button>
+    <button id="clear">CLEAR</button> <br>
     <div id="output-box"></div>
-    <script src="Wordle.js"></script>
+<script src="Wordle.js"></script>
 </body>
 </html>
