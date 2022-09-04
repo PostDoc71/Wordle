@@ -42,8 +42,8 @@ let OutputBox = document.getElementById('output-box');
 // });
 
 WordCheckEl.addEventListener('click', WordCheck);
-SolutionListEl.addEventListener('click', (List = 'SolutionList') => ShowList(SolutionList));
-GuessListEl.addEventListener('click', (List = 'GuessList') => ShowList(GuessList));
+SolutionListEl.addEventListener('click', () => ShowList(SolutionList));
+GuessListEl.addEventListener('click', () => ShowList(GuessList));
 CalculateEl.addEventListener('click', Calculate);
 ClearEl.addEventListener('click', Clear);
 
@@ -96,7 +96,7 @@ function WordCheck() {
 // -----------------------------------
 // Display the entire contents of the dictionaries
 
-; function ShowList (List) {
+function ShowList (List) {
     OutputBox.innerHTML = '';
     let Output = '';
     let h = Math.floor(List.length / 6) + 1;
@@ -104,6 +104,7 @@ function WordCheck() {
     let k = j + h;
     let m = k + h;
     let n = m + h;
+
     for (let i = 0; i < h; i++) {
         Output += List[i] + ' ' + List[h+i] +' ' +  List[j+i] +' ' +  List[k+i] +' ' +  List[m+i];
         if (List[n + i]) {
@@ -112,6 +113,7 @@ function WordCheck() {
             Output += `<br>`;
         }
     }
+
     OutputBox.innerHTML = Output;
 }
 
@@ -120,7 +122,8 @@ function WordCheck() {
 
 function Calculate() {
     let Words = WordsInputEl.value.toUpperCase().split(/[^A-Za-z]+/).filter(x => x);
-    if (Validate(Words)) {
+
+    if ( Validate(Words) ) {
         let WordGroups = test(Words);
         OutputBox.innerHTML = '';
         for (let i = 0; i < WordGroups.length; i++) {
@@ -130,14 +133,17 @@ function Calculate() {
             OutputBox.innerHTML += WordGroup.GroupSizes.length;
             OutputBox.innerHTML += ' - ';
             OutputBox.innerHTML += WordGroup.GroupSizes.join(',');
-            OutputBox.innerHTML += '<br>'
+            OutputBox.innerHTML += '<br>';
         }
     }
 }
 
 function test(PossibleAnswers) {
     let WordGroups = [];
-    for (let i = 0; i < PossibleAnswers.length; i++) {  // Collect the patterns
+
+    for (let i = 0; i < PossibleAnswers.length; i++) {  
+
+        // Collect the patterns
         let GuessWord = PossibleAnswers [i];
         let Patterns = [];
         for (let j = 0; j < PossibleAnswers.length; j++) {
@@ -154,21 +160,24 @@ function test(PossibleAnswers) {
             }
             Groups[Pattern]++;
         }
+
         WordGroups.push({ Guess: GuessWord, GroupSizes: Object.values(Groups)  });
     }
+
     WordGroups.sort ((a,b) => b.GroupSizes.length - a.GroupSizes.length);
     return WordGroups;
 }
 
 function MatchPattern(GuessStr, MatchStr) {
+
 // Change strings to arrays
     let OutputArr = ['.', '.', '.', '.', '.']  //Initialize to no match
     let GuessArr = [GuessStr[0], GuessStr[1], GuessStr[2], GuessStr[3], GuessStr[4]];
     let MatchArr = [MatchStr[0], MatchStr[1], MatchStr[2], MatchStr[3], MatchStr[4]];
     let OutputStr = '';
 
+// Mark green matches
     for (let i = 0; i < GuessStr.length; i++) {
-// Test for green exact matches
         if (GuessArr[i] === MatchArr[i]) {
             MatchArr[i] = '#';
             GuessArr[i] = '%';              // assures that this does not get replaced by a yellow
