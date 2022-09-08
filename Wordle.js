@@ -4,23 +4,12 @@
 // I think it gives appropriate hints without giving a solution
 
 // ====================================
-// DATA FEEDS
+// DATA FEED
 
-// JWords = 
-// juror junto junta jumpy JUMBO JUICY JUICE JUdge joust jolly joker joist 
-// joint jiffy jewel jetty jerky jelly jazzy jaunt fjord enjoy eject banjo
-// Test list =
-// aahed junta esntp frack joint
-// XWords =
-// waxen vixen twixt toxin toxic sixty sixth relax proxy pixie pixel oxide 
-// maxim index inbox helix fixer exult extra extol expel exist exile exert 
-// excel exalt exact epoxy detox buxom boxer Borax axion axiom axial annex affix
-
-//--------------------------------------
 Promise.all([
-    fetch('https://babelthuap.github.io/kokowordle/solutions.json').then(r => r.json()),
-    fetch('https://babelthuap.github.io/kokowordle/guesses.json').then(r => r.json()),
-  ]).then (([s, g]) => {
+    fetch('https://postdoc71.github.io/Wordle/SolutionList.json').then(r => r.json()),
+    fetch('https://postdoc71.github.io/Wordle/GuessList.json').then(r => r.json()),
+]).then (([s, g]) => {
     const SolutionList = [...s];
     const GuessList = [...g];
 
@@ -34,12 +23,6 @@ let GuessListEl = document.getElementById('guess-list');
 let CalculateEl = document.getElementById('calculate');
 let ClearEl = document.getElementById('clear');
 let OutputBox = document.getElementById('output-box');
-
-// WordsInputEl.addEventListener('keypress', e => {
-//     if (e.key === 'Enter') {
-//         Calculate();
-//     }
-// });
 
 WordCheckEl.addEventListener('click', WordCheck);
 SolutionListEl.addEventListener('click', () => ShowList(SolutionList));
