@@ -29,6 +29,10 @@ SolutionListEl.addEventListener('click', () => ShowList(SolutionList));
 GuessListEl.addEventListener('click', () => ShowList(GuessList));
 CalculateEl.addEventListener('click', Calculate);
 ClearEl.addEventListener('click', Clear);
+WordsInputEl.oninput = function() {
+    WordsInputEl.value = WordsInputEl.value.toUpperCase();
+    return;
+};
 
 // ====================================
 // FUNCTIONS
